@@ -63,7 +63,7 @@
         app:srcCompat="@drawable/star_icon" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/movie_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addFavourite" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/CommentsName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -85,11 +85,31 @@
         app:layout_constraintTop_toBottomOf="@+id/movieDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/actorsName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CommentsName" />
+
+    <TextView
+        android:id="@+id/actorsName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="180dp"
+        android:text="Actors"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CommentsName" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/actorsName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

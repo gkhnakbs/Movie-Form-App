@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.gokhanakbas.veritabanproje.databinding.ActivityAdminMainPageBinding;
+import com.gokhanakbas.veritabanproje.fragment.ActorFragment;
 import com.gokhanakbas.veritabanproje.fragment.CommentFragment;
 import com.gokhanakbas.veritabanproje.fragment.MovieFragment;
 
@@ -22,15 +23,19 @@ public class AdminMainPage extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         int durum1=R.id.movie;
+        int durum2=R.id.actor;
+
 
 
         binding.bottomBarAdminPage.setOnItemSelectedListener(item -> {
 
             if(item.getItemId()==durum1){
-                    replaceFragment(new MovieFragment());
+                replaceFragment(new MovieFragment());
             }
-            else{
-                    replaceFragment(new CommentFragment());
+            else if(item.getItemId()==durum2){
+                replaceFragment(new ActorFragment());
+            }else {
+                replaceFragment(new CommentFragment());
             }
             return true;
         });

@@ -21,7 +21,7 @@ public class LoginPage extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent(v.getContext(), MainActivity.class);
+                        Intent intent=new Intent(v.getContext(), AdminMainPage.class);
                         startActivity(intent);
                         finish();
                     }
