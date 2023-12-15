@@ -1,18 +1,42 @@
 package com.gokhanakbas.veritabanproje;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
 import com.gokhanakbas.veritabanproje.databinding.ActivityMainBinding;
+import com.gokhanakbas.veritabanproje.fragment.MainPageFragment;
+import com.gokhanakbas.veritabanproje.fragment.ProfilePageFragment;
 
 public class MainActivity extends AppCompatActivity {
-
     ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        int durum1=R.id.profile;
+        binding.bottomNavigationMain.setOnItemSelectedListener(item -> {
+
+            if(item.getItemId()==durum1){
+                replaceFragment(new ProfilePageFragment());
+            }
+            else {
+                replaceFragment(new MainPageFragment());
+            }
+
+            return true;
+        });
+    }
+
+    public void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager =getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainerView2,fragment);
+        fragmentTransaction.commit();
+
     }
 }
