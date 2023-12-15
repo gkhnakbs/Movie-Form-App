@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputActorName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Actor_Name"
@@ -33,6 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout13">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputActorAge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Actor_Age"
@@ -40,31 +42,16 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout15"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="83dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout14">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Actor Gender"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout12"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout15">
+        app:layout_constraintTop_toBottomOf="@+id/actor_gender_switch">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputActorCountry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Actor_Country"
@@ -76,7 +63,7 @@
         android:id="@+id/saveButtonActor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="30dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,8 +74,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="70dp"
         android:text="Cancel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout12" />
+
+    <Switch
+        android:id="@+id/actor_gender_switch"
+        android:layout_width="117dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="76dp"
+        android:text="Erkek"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout14" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Kadın"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/actor_gender_switch"
+        app:layout_constraintTop_toTopOf="@+id/actor_gender_switch" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
