@@ -7,10 +7,9 @@
     tools:context=".fragment.MainPageFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView3"
+        android:id="@+id/rv_mainPage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,16 +17,4 @@
         tools:itemCount="11"
         tools:listitem="@layout/recycler_row_movie" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="143dp"
-        android:layout_marginEnd="130dp"
-        android:text="ANA SAYFA"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
