@@ -29,10 +29,14 @@ public class MainPageFragment extends Fragment {
         binding=FragmentMainPageBinding.inflate(getLayoutInflater()); // Doğru id kullanıldığından emin olun
         binding.rvMainPage.setLayoutManager(new LinearLayoutManager(requireContext()));
         ArrayList<Actor> actorList=new ArrayList<>();
-        actorList.add(new Actor(1,"Ahmet","Türkiye","34"));
-        actorList.add(new Actor(2,"Ahmet","Türkiye","34"));
-        actorList.add(new Actor(3,"Ahmet","Türkiye","34"));
-        actorList.add(new Actor(4,"Ahmet","Türkiye","34"));
+        actorList.add(new Actor(1,"Ahmet Akbaş","Türkiye","34"));
+        actorList.add(new Actor(2,"Ahmet Akbaş","Türkiye","34"));
+        actorList.add(new Actor(3,"Ahmet Akbaş","Türkiye","34"));
+        actorList.add(new Actor(4,"Ahmet Akbaş","Türkiye","34"));
+        actorList.add(new Actor(5,"Ahmet Akbaş","Türkiye","34"));
+        actorList.add(new Actor(6,"Ahmet Akbaş","Türkiye","34"));
+        actorList.add(new Actor(7,"Ahmet Akbaş","Türkiye","34"));
+        actorList.add(new Actor(8,"Ahmet Akbaş","Türkiye","34"));
         ArrayList<Comment> commentList=new ArrayList<>();
         commentList.add(new Comment(1,1,"Comment,Comment,Comment,Comment,Comment,Comment","8.9"));
         commentList.add(new Comment(1,2,"Comment,Comment,Comment,Comment,Comment,Comment","8.9"));

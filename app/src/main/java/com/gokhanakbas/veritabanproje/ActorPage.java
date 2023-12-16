@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.gokhanakbas.veritabanproje.data.entity.entity.Actor;
+import com.gokhanakbas.veritabanproje.data.entity.entity.Movie;
 import com.gokhanakbas.veritabanproje.databinding.ActivityActorPageBinding;
 
 public class ActorPage extends AppCompatActivity {
@@ -18,7 +20,15 @@ public class ActorPage extends AppCompatActivity {
         binding=ActivityActorPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
+        Intent intent = getIntent();
+        if(intent!=null) {
+            binding.saveButtonActor.setEnabled(false);
+            binding.cancelButtonActor.setEnabled(false);
+            Actor actor = (Actor) intent.getSerializableExtra("actor_object");
+            binding.textInputActorName.setText(actor.getActor_name());
+            binding.textInputActorAge.setText(actor.getActor_age());
+            binding.textInputActorCountry.setText(actor.getActor_country());
+        }
         binding.saveButtonActor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

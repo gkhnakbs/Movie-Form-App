@@ -4,6 +4,7 @@ import static androidx.core.content.ContentProviderCompat.requireContext;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,7 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.gokhanakbas.veritabanproje.adapter.ActorAdapter;
 import com.gokhanakbas.veritabanproje.adapter.CommentAdapter;
+import com.gokhanakbas.veritabanproje.data.entity.entity.Actor;
 import com.gokhanakbas.veritabanproje.data.entity.entity.Comment;
 import com.gokhanakbas.veritabanproje.data.entity.entity.Movie;
 import com.gokhanakbas.veritabanproje.databinding.ActivityMoviePageBinding;
@@ -30,6 +33,7 @@ public class MoviePage extends AppCompatActivity {
         setContentView(binding.getRoot());
         Intent intent = getIntent();
         ArrayList<Comment> comment_list=new ArrayList<>();
+        ArrayList<Actor> actor_list=new ArrayList<>();
         if (intent != null) {
             Movie movie = (Movie) intent.getSerializableExtra("movie_object");
             binding.movieName.setText(movie.getMovie_name());
@@ -37,6 +41,7 @@ public class MoviePage extends AppCompatActivity {
             binding.movieScore.setText(movie.getMovie_score().concat("/10"));
             binding.categoryName.setText(movie.getMovie_category());
             comment_list=movie.getMovie_comments();
+            actor_list=movie.getMovie_actors();
         }
 
         favouriteStatus=0;
@@ -61,6 +66,12 @@ public class MoviePage extends AppCompatActivity {
         CommentAdapter adapter=new CommentAdapter(this,comment_list);
         binding.rvCommentMoviePage.setLayoutManager(layoutManager);
         binding.rvCommentMoviePage.setAdapter(adapter);
+
+
+        StaggeredGridLayoutManager layoutManager1=new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL);
+        ActorAdapter adapter1 = new ActorAdapter(this,actor_list);
+        binding.rvActorMoviePage.setLayoutManager(layoutManager1);
+        binding.rvActorMoviePage.setAdapter(adapter1);
 
     }
 }
