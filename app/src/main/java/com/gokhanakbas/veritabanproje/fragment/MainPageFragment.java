@@ -28,14 +28,20 @@ public class MainPageFragment extends Fragment {
         // inflater.inflate(R.layout.fragment_main_page, container, false);
         binding=FragmentMainPageBinding.inflate(getLayoutInflater()); // Doğru id kullanıldığından emin olun
         binding.rvMainPage.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ArrayList<Integer> actorList=new ArrayList<>();
-        actorList.add(1);
-        actorList.add(2);
-        actorList.add(3);
-        actorList.add(4);
-        actorList.add(5);
-        ArrayList<Integer> commentList=new ArrayList<>();
-        commentList.add(1);
+        ArrayList<Actor> actorList=new ArrayList<>();
+        actorList.add(new Actor(1,"Ahmet","Türkiye","34"));
+        actorList.add(new Actor(2,"Ahmet","Türkiye","34"));
+        actorList.add(new Actor(3,"Ahmet","Türkiye","34"));
+        actorList.add(new Actor(4,"Ahmet","Türkiye","34"));
+        ArrayList<Comment> commentList=new ArrayList<>();
+        commentList.add(new Comment(1,1,"Comment,Comment,Comment,Comment,Comment,Comment","8.9"));
+        commentList.add(new Comment(1,2,"Comment,Comment,Comment,Comment,Comment,Comment","8.9"));
+        commentList.add(new Comment(1,3,"Comment,Comment,Comment,Comment,Comment,Comment","8.9"));
+        commentList.add(new Comment(1,4,"Comment,Comment,Comment,Comment,Comment,Comment","8.9"));
+        commentList.add(new Comment(1,5,"Comment,Comment,Comment,Comment,Comment,Comment","8.9"));
+        commentList.add(new Comment(1,6,"Comment,Comment,Comment,Comment,Comment,Comment","8.9"));
+
+
 
         ArrayList<Movie> movieList=new ArrayList<>();
         movieList.add(new Movie(1,"Movie 1","Movie Description Movie Description Movie Description Movie Description Movie Description","8.9","Science",actorList,commentList));

@@ -1,6 +1,8 @@
 package com.gokhanakbas.veritabanproje.data.entity.entity;
 
-public class Actor {
+import java.io.Serializable;
+
+public class Actor implements Serializable {
     public Actor(int actor_id, String actor_name, String actor_country, String actor_age) {
         this.actor_id = actor_id;
         this.actor_name = actor_name;

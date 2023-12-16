@@ -54,7 +54,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Tıklama olayını ele al
+
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Movie clickedMovie = movie_list.get(position);
@@ -62,12 +62,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                         Intent intent = new Intent(mContext, MoviePage.class);
                         intent.putExtra("movie_object",clickedMovie);
 
-                        /*intent.putExtra("movie_id",clickedMovie.getMovie_id());
-                        intent.putExtra("movie_name",clickedMovie.getMovie_name());
-                        intent.putExtra("movie_desc",clickedMovie.getMovie_desc());
-                        intent.putExtra("movie_score",clickedMovie.getMovie_score());
-                        intent.putIntegerArrayListExtra("movie_actors",clickedMovie.getMovie_actors());
-                        intent.putIntegerArrayListExtra("movie_comments",clickedMovie.getMovie_comments());*/
                         mContext.startActivity(intent);
                     }
                 }

@@ -1,6 +1,8 @@
 package com.gokhanakbas.veritabanproje.data.entity.entity;
 
-public class Comment {
+import java.io.Serializable;
+
+public class Comment implements Serializable {
     public Comment(int comment_id, int user_id, String comment_desc, String comment_user_score) {
         this.comment_id = comment_id;
         this.user_id = user_id;

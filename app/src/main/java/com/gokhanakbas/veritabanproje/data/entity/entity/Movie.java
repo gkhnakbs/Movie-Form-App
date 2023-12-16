@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Movie implements Serializable {
 
-    public Movie(int movie_id, String movie_name, String movie_desc, String movie_score, String movie_category, ArrayList<Integer> movie_comments, ArrayList<Integer> movie_actors) {
+    public Movie(int movie_id, String movie_name, String movie_desc, String movie_score, String movie_category, ArrayList<Actor> movie_actors, ArrayList<Comment> movie_comments) {
         this.movie_id = movie_id;
         this.movie_name = movie_name;
         this.movie_desc = movie_desc;
@@ -40,11 +40,11 @@ public class Movie implements Serializable {
     public String getMovie_category() {
         return movie_category;
     }
-    public ArrayList<Integer> getMovie_comments() {
+    public ArrayList<Comment> getMovie_comments() {
         return movie_comments;
     }
 
-    public ArrayList<Integer> getMovie_actors() {
+    public ArrayList<Actor> getMovie_actors() {
         return movie_actors;
     }
 
@@ -60,9 +60,9 @@ public class Movie implements Serializable {
 
 
 
-    ArrayList<Integer> movie_comments;
+    ArrayList<Comment> movie_comments;
 
 
 
-    ArrayList<Integer> movie_actors;
+    ArrayList<Actor> movie_actors;
 }

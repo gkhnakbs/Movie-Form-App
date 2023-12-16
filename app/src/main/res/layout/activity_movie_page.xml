@@ -49,12 +49,12 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="35dp"
         android:text="Category Name"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieName" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_score"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginTop="100dp"
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/movieDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView4"
+        android:id="@+id/rv_comment_moviePage"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
@@ -109,6 +109,7 @@
         app:layout_constraintTop_toBottomOf="@+id/CommentsName" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_actor_moviePage"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
