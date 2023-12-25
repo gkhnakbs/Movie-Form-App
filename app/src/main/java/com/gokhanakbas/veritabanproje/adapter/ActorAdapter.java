@@ -43,6 +43,7 @@ public class ActorAdapter extends RecyclerView.Adapter<com.gokhanakbas.veritaban
         }
 
         public class ActorViewHolder extends RecyclerView.ViewHolder {
+
             private final RecyclerRowActorMoviePageBinding binding;
 
             public ActorViewHolder(RecyclerRowActorMoviePageBinding binding) {
@@ -50,14 +51,17 @@ public class ActorAdapter extends RecyclerView.Adapter<com.gokhanakbas.veritaban
                 this.binding = binding;
 
                 binding.getRoot().setOnClickListener(new View.OnClickListener() {
-                    int position = getAdapterPosition();
+
                     @Override
                     public void onClick(View v) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
                         Actor actor=actor_list.get(position);
                         Intent intent=new Intent(mContext, ActorPage.class);
                         intent.putExtra("actor_object",actor);
                         mContext.startActivity(intent);
-                    }
+
+                    }}
                 });
             }
         }

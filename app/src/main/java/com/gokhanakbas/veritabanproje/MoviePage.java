@@ -31,6 +31,7 @@ public class MoviePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityMoviePageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         Intent intent = getIntent();
         ArrayList<Comment> comment_list=new ArrayList<>();
         ArrayList<Actor> actor_list=new ArrayList<>();
@@ -61,6 +62,14 @@ public class MoviePage extends AppCompatActivity {
             }
         });
 
+        binding.floatingActionButtonComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(view.getContext(), CommentEditPage.class);
+                intent.putExtra("user_role","user");
+                startActivity(intent);
+            }
+        });
 
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         CommentAdapter adapter=new CommentAdapter(this,comment_list);

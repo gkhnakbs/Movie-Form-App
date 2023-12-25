@@ -13,6 +13,12 @@
         android:theme="@style/Theme.VeritabanıProje"
         tools:targetApi="31">
         <activity
+            android:name=".CommentEditPage"
+            android:exported="false" />
+        <activity
+            android:name=".CommentPage"
+            android:exported="false" />
+        <activity
             android:name=".ActorPage"
             android:exported="false" />
         <activity
@@ -42,11 +48,14 @@
         <activity
             android:name=".MainActivity"
             android:exported="false">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
     </application>
 

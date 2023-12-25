@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".MoviePage">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="550dp"
+        android:layout_marginEnd="30dp"
+        android:clickable="true"
+        android:src="@drawable/comment_add_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="35dp" />
+
     <ImageButton
         android:id="@+id/addFavourite"
         android:layout_width="60dp"

@@ -24,8 +24,18 @@ public class ActorPage extends AppCompatActivity {
         if(intent!=null) {
             binding.saveButtonActor.setEnabled(false);
             binding.cancelButtonActor.setEnabled(false);
+            binding.textInputActorName.setEnabled(false);
+            binding.textInputActorAge.setEnabled(false);
+            binding.textInputActorCountry.setEnabled(false);
+
             Actor actor = (Actor) intent.getSerializableExtra("actor_object");
             binding.textInputActorName.setText(actor.getActor_name());
+            if(actor.getActor_gender().equals("Erkek")){
+                binding.actorGenderSwitch.setChecked(false);
+            }
+            else {
+                binding.actorGenderSwitch.setChecked(true);
+            }
             binding.textInputActorAge.setText(actor.getActor_age());
             binding.textInputActorCountry.setText(actor.getActor_country());
         }
