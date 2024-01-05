@@ -28,16 +28,17 @@ public class ActorPage extends AppCompatActivity {
             binding.textInputActorCountry.setText(actor.getActor_country());
             if(actor.getActor_gender().equals("Erkek")){
                 binding.actorGenderSwitch.setChecked(false);
+                binding.actorGenderSwitch.setEnabled(false);
             }
             else {
                 binding.actorGenderSwitch.setChecked(true);
+                binding.actorGenderSwitch.setEnabled(false);
             }
 
             if(intent.getStringExtra("user_role").equals("admin")){
 
             }else{
-            binding.saveButtonActor.setEnabled(false);
-            binding.cancelButtonActor.setEnabled(false);
+            binding.saveButtonActor.setVisibility(View.INVISIBLE);
             binding.textInputActorName.setEnabled(false);
             binding.textInputActorAge.setEnabled(false);
             binding.textInputActorCountry.setEnabled(false);

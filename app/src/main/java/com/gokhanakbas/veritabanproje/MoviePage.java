@@ -117,8 +117,6 @@ public class MoviePage extends AppCompatActivity {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            // Sonuçları işle
-
                 if(resultSet.next()){
                         System.out.println("Beğenmiş:"+resultSet.getInt(1));
                         binding.addFavourite.setImageResource(R.drawable.heart_icon_filled);
@@ -138,7 +136,7 @@ public class MoviePage extends AppCompatActivity {
     }
 
     public void addToFavourites(){
-        String sql = "INSERT INTO favourites VALUES (10,?,?)";
+        String sql = "INSERT INTO favourites VALUES (12,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, movie_id);
@@ -180,53 +178,26 @@ public class MoviePage extends AppCompatActivity {
     public void getActors(int movie_id){
 
         try {
-            // Örnek bir sorgu
-            String query = "SELECT actor_id FROM actorsofmovies where actor_movie_id="+movie_id;
+            String query = "SELECT a.actor_id,a.actor_name,a.actor_age,a.actor_sex,a.actor_country FROM actorsofmovies AS aom " +
+                    "JOIN actors AS a ON a.actor_id=aom.actor_id where actor_movie_id="+movie_id;
             PreparedStatement statement = connection.prepareStatement(query);
+            String result_actor_name="";
+            String result_actor_age="";
+            String result_actor_country="";
+            String result_actor_gender="";
 
-            // Sorguyu çalıştır
             ResultSet resultSet = statement.executeQuery();
 
-            // Sonuçları işle
+
             if (resultSet == null) {
                 Toast.makeText(this, "Aktör", Toast.LENGTH_LONG).show();
             } else {
                 while (resultSet.next()) {
-                    getActorInfo(resultSet.getInt(1));
-                }
-                resultSet.close();
-                statement.close();
-            }}catch(Exception e){
-            System.out.println("Başarısız Film");
-            e.printStackTrace();
-        }
-
-    }
-    public void getActorInfo(int actor_id){
-
-
-        String result_actor_name="";
-        String result_actor_age="";
-        String result_actor_country="";
-        String result_actor_gender="";
-
-        try {
-            // Örnek bir sorgu
-            String query = "SELECT actor_name,actor_age,actor_sex,actor_country FROM actors where actor_id="+actor_id;
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            // Sorguyu çalıştır
-            ResultSet resultSet = statement.executeQuery();
-
-            // Sonuçları işle
-            if (resultSet == null) {
-                Toast.makeText(this, "Aktör", Toast.LENGTH_LONG).show();
-            } else {
-                while (resultSet.next()) {
-                    result_actor_name=resultSet.getString(1);
-                    result_actor_age=resultSet.getString(2);
-                    result_actor_gender=resultSet.getString(3);
-                    result_actor_country=resultSet.getString(4);
+                    int actor_id=resultSet.getInt(1);
+                    result_actor_name=resultSet.getString(2);
+                    result_actor_age=resultSet.getString(3);
+                    result_actor_gender=resultSet.getString(4);
+                    result_actor_country=resultSet.getString(5);
                     actorList.add(new Actor(actor_id,result_actor_name,result_actor_country,result_actor_gender,result_actor_age));
                 }
                 resultSet.close();
@@ -235,9 +206,10 @@ public class MoviePage extends AppCompatActivity {
             System.out.println("Başarısız Film");
             e.printStackTrace();
         }
-    }
-    public void getComments(int movie_id) {
 
+    }
+
+    public void getComments(int movie_id) {
 
         int result_comment_id;
         int result_comment_user_id;
@@ -246,14 +218,13 @@ public class MoviePage extends AppCompatActivity {
         String result_comment_user_name = "";
 
         try {
-            // Örnek bir sorgu
-            String query = "SELECT com_id,com_user_id,com_description,com_score FROM comments where com_movie_id=" + movie_id;
+            String query = "SELECT c.com_id,c.com_user_id,c.com_description,c.com_score,u.user_name FROM comments AS c " +
+                    "JOIN users u ON u.user_id=c.com_user_id where com_movie_id=" + movie_id;
             PreparedStatement statement = connection.prepareStatement(query);
 
-            // Sorguyu çalıştır
             ResultSet resultSet = statement.executeQuery();
 
-            // Sonuçları işle
+
             if (resultSet == null) {
                 Toast.makeText(this, "Yorum bulunamamıştır", Toast.LENGTH_LONG).show();
             } else {
@@ -262,7 +233,7 @@ public class MoviePage extends AppCompatActivity {
                     result_comment_user_id=resultSet.getInt(2);
                     result_comment_desc=resultSet.getString(3);
                     result_comment_score=resultSet.getString(4);
-                    result_comment_user_name=getUserInfo(result_comment_user_id);
+                    result_comment_user_name=resultSet.getString(5);
                     commentList.add(new Comment(result_comment_id,result_comment_user_id,result_comment_user_name,result_comment_desc,result_comment_score));
                 }
                 resultSet.close();
@@ -275,33 +246,4 @@ public class MoviePage extends AppCompatActivity {
 
     }
 
-    public String getUserInfo(int user_id){
-
-
-        String result_comment_user_name = "";
-
-        try {
-            // Örnek bir sorgu
-            String query = "SELECT user_name FROM users where user_id=" + user_id;
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            // Sorguyu çalıştır
-            ResultSet resultSet = statement.executeQuery();
-
-            // Sonuçları işle
-            if (resultSet == null) {
-                Toast.makeText(this, "Kişi Bulunamamıştır", Toast.LENGTH_SHORT).show();
-            } else {
-                while (resultSet.next()) {
-                    result_comment_user_name=resultSet.getString(1);
-                }
-                resultSet.close();
-                statement.close();
-            }
-        } catch (Exception e) {
-            System.out.println("Başarısız Kişi Çekme");
-            e.printStackTrace();
-        }
-        return result_comment_user_name;
-    }
 }

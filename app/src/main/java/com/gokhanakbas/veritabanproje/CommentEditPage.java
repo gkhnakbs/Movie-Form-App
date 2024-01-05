@@ -21,6 +21,7 @@ import java.sql.SQLException;
 
 public class CommentEditPage extends AppCompatActivity {
     ActivityCommentEditPageBinding binding;
+    Connection connection;
     String user_role;
     float ratingbar_user_score;
     int movie_id;
@@ -31,6 +32,11 @@ public class CommentEditPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityCommentEditPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        connection= DBConnection.connection;
 
         Intent intent=getIntent();
 
@@ -60,20 +66,16 @@ public class CommentEditPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Burada Temel database kodları alır
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-                Connection connection= DBConnection.connection;
+
                 if(edit_mode==1){
                     if(binding.commentDescriptionUser.getText().toString().equals("")||
                             ratingbar_user_score==0){
                         Toast.makeText(view.getContext(),"Boş alanlar var!",Toast.LENGTH_SHORT).show();
                     }
                     else{//Burada UPDATE işlemi yapılacak
-                        try {
-                            // Örnek bir sorgu
-                            String query = "Update comments set com_desc='"+binding.commentDescriptionUser.getText().toString()+
+                        String query = "Update comments set com_desc='"+binding.commentDescriptionUser.getText().toString()+
                                     "',com_score="+ratingbar_user_score+" where com_id="+com_id;
-
+                        try {
                             PreparedStatement statement = connection.prepareStatement(query);
                             // Sorguyu çalıştır
                             int affectedRows = statement.executeUpdate();
@@ -100,7 +102,7 @@ public class CommentEditPage extends AppCompatActivity {
                     else{//burada INSERT işlemi yapılacak yeni bir yorum ekleme
                         try {
                             // Örnek bir sorgu
-                            String query = "Insert into comments VALUES(9,"+LoginPage.login_user_id+","+movie_id+",'"
+                            String query = "Insert into comments VALUES(13,"+LoginPage.login_user_id+","+movie_id+",'"
                                     +binding.commentDescriptionUser.getText().toString()+"','"+ratingbar_user_score+"')";
                             PreparedStatement statement = connection.prepareStatement(query);
                             // Sorguyu çalıştır

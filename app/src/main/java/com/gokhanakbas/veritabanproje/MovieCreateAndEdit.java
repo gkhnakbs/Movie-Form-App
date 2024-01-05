@@ -14,35 +14,39 @@ import android.widget.Toast;
 import com.gokhanakbas.veritabanproje.adapter.ActorOfAdminAdapter;
 import com.gokhanakbas.veritabanproje.data.entity.entity.Actor;
 import com.gokhanakbas.veritabanproje.data.entity.entity.Movie;
+import com.gokhanakbas.veritabanproje.database.DBConnection;
 import com.gokhanakbas.veritabanproje.databinding.ActivityMovieCreateAndEditBinding;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class MovieCreateAndEdit extends AppCompatActivity {
 
     ActivityMovieCreateAndEditBinding binding;
+    Connection connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityMovieCreateAndEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        connection= DBConnection.connection;
         ArrayList<Actor> actorArrayList=new ArrayList<>();
         Intent intent=getIntent();
         if(intent!=null) {
             Movie movie =(Movie) intent.getSerializableExtra("movie_object");
-            binding.movieCategory.setText(movie.getMovie_category());
-            binding.movieDescription.setText(movie.getMovie_desc());
-            binding.movieName.setText(movie.getMovie_name());
-            ActorOfAdminAdapter adapter=new ActorOfAdminAdapter(this,actorArrayList);
-            binding.actorMovieRvAdmin.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
-            binding.actorMovieRvAdmin.setAdapter(adapter);
+            if(movie!=null) {
+                binding.movieCategory.setText(movie.getMovie_category());
+                binding.movieDescription.setText(movie.getMovie_desc());
+                binding.movieName.setText(movie.getMovie_name());
+                ActorOfAdminAdapter adapter = new ActorOfAdminAdapter(this, actorArrayList);
+                binding.actorMovieRvAdmin.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                binding.actorMovieRvAdmin.setAdapter(adapter);
+            }
         }
+        //getActors();
         ArrayList<String> actor_list=new ArrayList<>();
-        actor_list.add("Ahmet Akbaş");
-        actor_list.add("Umut Erol");
-        actor_list.add("Gökhan");
-        
         ArrayAdapter<String> adapterForAdmin=new ArrayAdapter<String>(binding.spinner.getContext(),android.R.layout.simple_spinner_dropdown_item, actor_list);
         adapterForAdmin.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         binding.spinner.setAdapter(adapterForAdmin);
@@ -77,5 +81,29 @@ public class MovieCreateAndEdit extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    public void getActors(){
+        try {
+            // Örnek bir sorgu
+            String query = "SELECT * FROM actors AS a";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            // Sorguyu çalıştır
+            ResultSet resultSet = statement.executeQuery();
+
+            // Sonuçları işle
+            if (resultSet == null) {
+                Toast.makeText(this, "Aktör", Toast.LENGTH_LONG).show();
+            } else {
+                while (resultSet.next()) {
+                    //getActorInfo(resultSet.getInt(1));
+
+                }
+                resultSet.close();
+                statement.close();
+            }}catch(Exception e){
+            System.out.println("Başarısız Film");
+            e.printStackTrace();
+        }
     }
 }
