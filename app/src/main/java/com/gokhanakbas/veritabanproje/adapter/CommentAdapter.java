@@ -1,11 +1,15 @@
 package com.gokhanakbas.veritabanproje.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gokhanakbas.veritabanproje.CommentEditPage;
+import com.gokhanakbas.veritabanproje.CommentPage;
 import com.gokhanakbas.veritabanproje.data.entity.entity.Comment;
 import com.gokhanakbas.veritabanproje.databinding.RecyclerRowCommentBinding;
 
@@ -31,7 +35,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             Comment comment = comment_list.get(position);
             holder.binding.userFullName.setText(String.valueOf(comment.getUser_id()));
             holder.binding.userComment.setText(comment.getComment_desc());
-            holder.binding.userCommentScore.setText(comment.getComment_user_score().concat("/10"));
+            holder.binding.userCommentScore.setText(comment.getComment_user_score().concat("/5"));
         }
 
         @Override
@@ -45,6 +49,19 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             public CommentViewHolder(RecyclerRowCommentBinding binding) {
                 super(binding.getRoot());
                 this.binding = binding;
+
+                binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            Comment comment=comment_list.get(position);
+                            Intent intent=new Intent(v.getContext(),CommentEditPage.class);
+                            intent.putExtra("comment_object",comment);
+                            mContext.startActivity(intent);
+                        }
+                    }
+                });
             }
         }
     }

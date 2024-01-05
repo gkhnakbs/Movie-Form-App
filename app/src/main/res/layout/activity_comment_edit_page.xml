@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Comment"
-            android:inputType="text"
+            android:inputType="text|textMultiLine"
             android:textAlignment="textStart" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,23 +50,23 @@
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
     <Button
-        android:id="@+id/saveComment"
+        android:id="@+id/deleteComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:text="Delete"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveComment"
+        app:layout_constraintStart_toEndOf="@+id/cancelComment"
         app:layout_constraintTop_toTopOf="@+id/cancelComment" />
 
     <Button
-        android:id="@+id/update_comment"
+        android:id="@+id/saveComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:text="Güncelle"
-        app:layout_constraintEnd_toStartOf="@+id/saveComment"
-        app:layout_constraintStart_toEndOf="@+id/cancelComment"
+        android:layout_marginEnd="20dp"
+        android:text="Kaydet"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cancelComment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

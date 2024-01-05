@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gokhanakbas.veritabanproje.CommentEditPage;
+import com.gokhanakbas.veritabanproje.CommentPage;
 import com.gokhanakbas.veritabanproje.MoviePage;
 import com.gokhanakbas.veritabanproje.data.entity.entity.Comment;
 import com.gokhanakbas.veritabanproje.data.entity.entity.Movie;
@@ -20,10 +22,12 @@ public class CommentsOfUserAdapter extends RecyclerView.Adapter<CommentsOfUserAd
 
         private final Context mContext;
         private List<Comment> comment_list;
+        private String activity;
 
-        public CommentsOfUserAdapter(Context context, List<Comment> comments) {
+        public CommentsOfUserAdapter(Context context, List<Comment> comments,String Activity) {
             mContext = context;
             comment_list = comments;
+            activity=Activity;
         }
 
         @Override
@@ -35,9 +39,9 @@ public class CommentsOfUserAdapter extends RecyclerView.Adapter<CommentsOfUserAd
         @Override
         public void onBindViewHolder(CommentOfUserViewHolder holder, int position) {
             Comment comment = comment_list.get(position);
-            holder.binding.userFullName.setText(String.valueOf(comment.getUser_id()));
+            holder.binding.userFullName.setText(String.valueOf(comment.getComment_user_name()));
             holder.binding.userComment.setText(comment.getComment_desc());
-            holder.binding.userCommentScore.setText(String.valueOf(comment.getComment_user_score()).concat("/10"));
+            holder.binding.userCommentScore.setText(String.valueOf(comment.getComment_user_score()).concat("/5"));
         }
 
         @Override
@@ -51,6 +55,31 @@ public class CommentsOfUserAdapter extends RecyclerView.Adapter<CommentsOfUserAd
             public CommentOfUserViewHolder(RecyclerRowCommentBinding binding) {
                 super(binding.getRoot());
                 this.binding = binding;
+
+                binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                int position=getAdapterPosition();
+                                if(position!=RecyclerView.NO_POSITION){
+                                    Comment comment=comment_list.get(position);
+                                    if(activity.equals("user_profile")){
+                                        Intent intent= new Intent(v.getContext(), CommentEditPage.class);
+                                        intent.putExtra("comment_object",comment);
+                                        intent.putExtra("user_role","user");
+                                        mContext.startActivity(intent);
+                                    }else{
+                                    Intent intent= new Intent(v.getContext(), CommentPage.class);
+                                    intent.putExtra("comment_object",comment);
+                                    mContext.startActivity(intent);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
             }
         }
     }

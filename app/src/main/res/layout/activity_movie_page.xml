@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MoviePage">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButtonComment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="550dp"
-        android:layout_marginEnd="30dp"
-        android:clickable="true"
-        android:src="@drawable/comment_add_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:maxImageSize="35dp" />
-
     <ImageButton
         android:id="@+id/addFavourite"
         android:layout_width="60dp"
@@ -129,7 +117,21 @@
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actorsName" />
+        app:layout_constraintTop_toBottomOf="@+id/actorsName"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonAddComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="524dp"
+        android:layout_marginEnd="30dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="35dp"
+        app:srcCompat="@drawable/comment_add_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

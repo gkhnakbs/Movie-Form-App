@@ -59,8 +59,8 @@ public class ActorAdapter extends RecyclerView.Adapter<com.gokhanakbas.veritaban
                         Actor actor=actor_list.get(position);
                         Intent intent=new Intent(mContext, ActorPage.class);
                         intent.putExtra("actor_object",actor);
+                        intent.putExtra("user_role","user");
                         mContext.startActivity(intent);
-
                     }}
                 });
             }

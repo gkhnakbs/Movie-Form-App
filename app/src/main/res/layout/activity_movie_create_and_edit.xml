@@ -65,10 +65,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout9" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView5"
+        android:id="@+id/actor_movie_rv_admin"
         android:layout_width="0dp"
         android:layout_height="180dp"
         android:layout_marginTop="10dp"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
@@ -81,7 +82,7 @@
         android:layout_marginEnd="30dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView5" />
+        app:layout_constraintTop_toBottomOf="@+id/actor_movie_rv_admin" />
 
     <Button
         android:id="@+id/cancelButtonMovie"
@@ -91,5 +92,14 @@
         android:layout_marginTop="20dp"
         android:text="Cancel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView5" />
+        app:layout_constraintTop_toBottomOf="@+id/actor_movie_rv_admin" />
+
+    <Button
+        android:id="@+id/delete_burron_movie_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sil"
+        app:layout_constraintEnd_toStartOf="@+id/saveButtonMovie"
+        app:layout_constraintStart_toEndOf="@+id/cancelButtonMovie"
+        app:layout_constraintTop_toTopOf="@+id/cancelButtonMovie" />
 </androidx.constraintlayout.widget.ConstraintLayout>

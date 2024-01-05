@@ -34,7 +34,7 @@ public class MovieFavouriteAdapter extends RecyclerView.Adapter<MovieFavouriteAd
             Movie movie = movie_list.get(position);
             holder.binding.movieNameRvItem.setText(movie.getMovie_name());
             holder.binding.movieDescRvItem.setText(movie.getMovie_desc());
-            holder.binding.movieScoreRvItem.setText(String.valueOf(movie.getMovie_score()).concat("/10"));
+            holder.binding.movieScoreRvItem.setText(String.valueOf(movie.getMovie_score()).concat("/5"));
         }
 
         @Override

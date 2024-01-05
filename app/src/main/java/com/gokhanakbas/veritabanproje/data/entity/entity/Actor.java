@@ -10,7 +10,10 @@ public class Actor implements Serializable {
         this.actor_gender = actor_gender;
         this.actor_age = actor_age;
     }
-
+    public Actor(int actor_id, String actor_name) {
+        this.actor_id = actor_id;
+        this.actor_name = actor_name;
+    }
     public int getActor_id() {
         return actor_id;
     }
@@ -29,6 +32,9 @@ public class Actor implements Serializable {
     public String getActor_gender() {
         return actor_gender;
     }
+
+
+
     int actor_id;
     String actor_name;
 

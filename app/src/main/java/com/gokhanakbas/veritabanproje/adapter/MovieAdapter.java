@@ -1,4 +1,4 @@
-package com.example.yourpackage;
+package com.gokhanakbas.veritabanproje.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gokhanakbas.veritabanproje.MovieCreateAndEdit;
 import com.gokhanakbas.veritabanproje.MoviePage;
 import com.gokhanakbas.veritabanproje.data.entity.entity.Movie;
 import com.gokhanakbas.veritabanproje.databinding.RecyclerRowMovieBinding;
@@ -19,10 +20,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private final Context mContext;
     private List<Movie> movie_list;
+    private String user_role;
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public MovieAdapter(Context context, List<Movie> movies,String userRole) {
         mContext = context;
         movie_list = movies;
+        user_role=userRole;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Movie movie = movie_list.get(position);
         holder.binding.movieNameRvItem.setText(movie.getMovie_name());
         holder.binding.movieDescRvItem.setText(movie.getMovie_desc());
-        holder.binding.movieScoreRvItem.setText(String.valueOf(movie.getMovie_score()).concat("/10"));
+        holder.binding.movieScoreRvItem.setText(String.valueOf(movie.getMovie_score()).concat("/5"));
     }
 
     @Override
@@ -58,12 +61,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Movie clickedMovie = movie_list.get(position);
+                        if(user_role.equals("admin")){
+                            Intent intent = new Intent(mContext, MovieCreateAndEdit.class);
+                            intent.putExtra("movie_object",clickedMovie);
 
+                            mContext.startActivity(intent);
+                        }else {
                         Intent intent = new Intent(mContext, MoviePage.class);
                         intent.putExtra("movie_object",clickedMovie);
 
                         mContext.startActivity(intent);
-                    }
+                    }}
                 }
             });
         }
