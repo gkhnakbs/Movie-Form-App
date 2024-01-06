@@ -34,7 +34,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         @Override
         public void onBindViewHolder(CommentViewHolder holder, int position) {
             Comment comment = comment_list.get(position);
-            holder.binding.userFullName.setText(String.valueOf(comment.getUser_id()));
+            holder.binding.userFullName.setText(comment.getComment_user_name());
             holder.binding.userComment.setText(comment.getComment_desc());
             holder.binding.userCommentScore.setText(comment.getComment_user_score().concat("/5"));
         }
@@ -59,6 +59,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                             Comment comment=comment_list.get(position);
                             Intent intent=new Intent(v.getContext(),CommentEditPage.class);
                             intent.putExtra("comment_object",comment);
+                            intent.putExtra("user_role","admin");
                             mContext.startActivity(intent);
                         }
                     }

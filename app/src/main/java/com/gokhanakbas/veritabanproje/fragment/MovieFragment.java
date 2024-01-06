@@ -27,14 +27,10 @@ import java.util.ArrayList;
 
 public class MovieFragment extends Fragment {
 
-    ArrayList<Movie> movieList=new ArrayList<>();
+    static ArrayList<Movie> movieList=new ArrayList<>();
     FragmentMovieBinding binding;
     Connection connection;
-    int result_movie_id;
-    String result_movie_name="";
-    String result_movie_desc="";
-    String result_movie_score="";
-    String result_movie_category="";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,7 +38,7 @@ public class MovieFragment extends Fragment {
         binding=FragmentMovieBinding.inflate(getLayoutInflater());
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        connection= DBConnection.connection;
+        connection=DBConnection.connection;
         getMovies();
 
         MovieAdapter adapter=new MovieAdapter(requireContext(),movieList,"admin");
@@ -61,15 +57,21 @@ public class MovieFragment extends Fragment {
 
 
     public void getMovies(){
+        movieList.clear();
+        int result_movie_id;
+        String result_movie_name="";
+        String result_movie_desc="";
+        String result_movie_score="";
+        String result_movie_category="";
         try {
-            // Örnek bir sorgu
+
             String query = "SELECT * FROM movies";
             PreparedStatement statement = connection.prepareStatement(query);
 
-            // Sorguyu çalıştır
+
             ResultSet resultSet = statement.executeQuery();
 
-            // Sonuçları işle
+
             if (resultSet == null) {
                 Toast.makeText(getContext(), "Film bulunamamıştır", Toast.LENGTH_LONG).show();
             } else {

@@ -7,15 +7,25 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.widget.Toast;
 
+import com.gokhanakbas.veritabanproje.data.entity.entity.Movie;
+import com.gokhanakbas.veritabanproje.database.DBConnection;
 import com.gokhanakbas.veritabanproje.databinding.ActivityAdminMainPageBinding;
 import com.gokhanakbas.veritabanproje.fragment.ActorFragment;
 import com.gokhanakbas.veritabanproje.fragment.CommentFragment;
 import com.gokhanakbas.veritabanproje.fragment.MovieFragment;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 public class AdminMainPage extends AppCompatActivity {
 
     ActivityAdminMainPageBinding binding;
+    static ArrayList<Movie> movieList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +35,6 @@ public class AdminMainPage extends AppCompatActivity {
 
         int durum1=R.id.movie;
         int durum2=R.id.actor;
-
-
 
         binding.bottomBarAdminPage.setOnItemSelectedListener(item -> {
 
@@ -49,4 +57,6 @@ public class AdminMainPage extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentContainerView,fragment);
         fragmentTransaction.commit();
     }
+
+
 }

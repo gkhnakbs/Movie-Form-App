@@ -30,22 +30,33 @@ import java.util.List;
 public class MainPageFragment extends Fragment {
 
     FragmentMainPageBinding binding;
+    ArrayList<Movie> movieList=new ArrayList<>();
+    int result_movie_id;
+    String result_movie_name="";
+    String result_movie_desc="";
+    String result_movie_score="";
+    String result_movie_category="";
+    Connection connection;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // inflater.inflate(R.layout.fragment_main_page, container, false);
         binding=FragmentMainPageBinding.inflate(getLayoutInflater()); // Doğru id kullanıldığından emin olun
         binding.rvMainPage.setLayoutManager(new LinearLayoutManager(requireContext()));
-        int result_movie_id;
-        String result_movie_name="";
-        String result_movie_desc="";
-        String result_movie_score="";
-        String result_movie_category="";
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        Connection connection= DBConnection.connection;
-        ArrayList<Movie> movieList=new ArrayList<>();
+        connection= DBConnection.connection;
 
+        getMovies();
+        MovieAdapter adapter=new MovieAdapter(requireContext(),movieList,"user");
+
+        binding.rvMainPage.setAdapter(adapter);
+        return binding.getRoot();
+    }
+
+    public void getMovies(){
+        movieList.clear();
         try {
             // Örnek bir sorgu
             String query = "SELECT * FROM movies";
@@ -69,13 +80,8 @@ public class MainPageFragment extends Fragment {
                 resultSet.close();
                 statement.close();
             }}catch(Exception e){
-                System.out.println("Başarısız Film");
-                e.printStackTrace();
-            }
-
-        MovieAdapter adapter=new MovieAdapter(requireContext(),movieList,"user");
-
-        binding.rvMainPage.setAdapter(adapter);
-        return binding.getRoot();
+            System.out.println("Başarısız Film");
+            e.printStackTrace();
+        }
     }
 }

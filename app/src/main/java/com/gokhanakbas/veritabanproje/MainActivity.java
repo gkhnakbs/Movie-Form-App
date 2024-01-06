@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
         Intent intent=getIntent();
         String user_mail=intent.getStringExtra("user_mail");
         int durum1=R.id.profile;

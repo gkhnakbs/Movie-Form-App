@@ -24,6 +24,7 @@ public class LoginPage extends AppCompatActivity {
     ActivityLoginPageBinding binding;
     Connection connection;
     static int login_user_id;
+    static String login_user_mail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +35,7 @@ public class LoginPage extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         DBConnection connnection1=new DBConnection();
-        try{
-            connnection1.DatabaseConnection();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        connnection1.DatabaseConnection();
         connection=DBConnection.connection;
 
 
@@ -51,7 +48,7 @@ public class LoginPage extends AppCompatActivity {
                         }else{
                             boolean isValid=checkUser(v.getContext());
                             if(isValid){
-                                Intent intent=new Intent(v.getContext(), AdminMainPage.class);
+                                Intent intent=new Intent(v.getContext(), MainActivity.class);
                                 intent.putExtra("user_mail",binding.textInputEmail.getText().toString());
                                 startActivity(intent);
                                 finish();
@@ -88,6 +85,7 @@ public class LoginPage extends AppCompatActivity {
                     result = resultSet.getString(2);
                     System.out.println("ŞİFRE:" + result);
                 }
+                login_user_mail=binding.textInputEmail.getText().toString();
                 resultSet.close();
                 statement.close();
                 if (result.equals(user_password)) {
