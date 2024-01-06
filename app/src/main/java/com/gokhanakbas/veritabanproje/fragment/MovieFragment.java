@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.gokhanakbas.veritabanproje.DeletedMoviesActivity;
 import com.gokhanakbas.veritabanproje.MovieCreateAndEdit;
 import com.gokhanakbas.veritabanproje.adapter.MovieAdapter;
 import com.gokhanakbas.veritabanproje.data.entity.entity.Actor;
@@ -48,6 +49,14 @@ public class MovieFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(v.getContext(), MovieCreateAndEdit.class);
+                startActivity(intent);
+
+            }
+        });
+        binding.floatingActionButtonDeletedMovies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(v.getContext(), DeletedMoviesActivity.class);
                 startActivity(intent);
             }
         });

@@ -34,11 +34,8 @@ public class Actor implements Serializable {
     }
 
 
-
     int actor_id;
     String actor_name;
-
-
 
     String actor_country;
 

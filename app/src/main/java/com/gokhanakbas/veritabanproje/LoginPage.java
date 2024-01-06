@@ -48,7 +48,7 @@ public class LoginPage extends AppCompatActivity {
                         }else{
                             boolean isValid=checkUser(v.getContext());
                             if(isValid){
-                                Intent intent=new Intent(v.getContext(), MainActivity.class);
+                                Intent intent=new Intent(v.getContext(), AdminMainPage.class);
                                 intent.putExtra("user_mail",binding.textInputEmail.getText().toString());
                                 startActivity(intent);
                                 finish();
