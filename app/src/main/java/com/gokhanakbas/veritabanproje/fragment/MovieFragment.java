@@ -31,6 +31,7 @@ public class MovieFragment extends Fragment {
     static ArrayList<Movie> movieList=new ArrayList<>();
     FragmentMovieBinding binding;
     Connection connection;
+    MovieAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +43,7 @@ public class MovieFragment extends Fragment {
         connection=DBConnection.connection;
         getMovies();
 
-        MovieAdapter adapter=new MovieAdapter(requireContext(),movieList,"admin");
+        adapter=new MovieAdapter(requireContext(),movieList,"admin");
         binding.movieRv.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.movieRv.setAdapter(adapter);
         binding.floatingActionButtonAddMovie.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +65,13 @@ public class MovieFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getMovies();
+        adapter.notifyDataSetChanged();
+
+    }
 
     public void getMovies(){
         movieList.clear();

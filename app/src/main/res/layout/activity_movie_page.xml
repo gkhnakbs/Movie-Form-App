@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#78FFEF"
     tools:context=".MoviePage">
 
     <ImageButton
@@ -19,12 +20,18 @@
 
     <TextView
         android:id="@+id/movieName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="8dp"
+        android:scrollIndicators="bottom"
+        android:singleLine="true"
         android:text="Movie_Name"
         android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="@+id/addFavourite"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,12 +82,14 @@
 
     <TextView
         android:id="@+id/CommentsName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:background="#C555E4"
         android:text="Comments"
+        android:textAlignment="center"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieDescription" />
 
@@ -99,12 +108,14 @@
 
     <TextView
         android:id="@+id/actorsName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="390dp"
+        android:background="#C555E4"
         android:text="Actors"
+        android:textAlignment="center"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryName" />
 
@@ -133,5 +144,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="35dp"
         app:srcCompat="@drawable/comment_add_icon" />
+
+    <TextView
+        android:id="@+id/countOfFavourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:textSize="42dp"
+        app:layout_constraintEnd_toStartOf="@+id/addFavourite"
+        app:layout_constraintTop_toTopOf="@+id/addFavourite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

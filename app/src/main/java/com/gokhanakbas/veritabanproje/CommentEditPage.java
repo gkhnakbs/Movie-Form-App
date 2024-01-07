@@ -20,7 +20,7 @@ import java.sql.SQLException;
 public class CommentEditPage extends AppCompatActivity {
     ActivityCommentEditPageBinding binding;
     Connection connection;
-    String user_role;
+    String user_rolee;
     float ratingbar_user_score;
     int movie_id;
     int com_id;
@@ -35,8 +35,8 @@ public class CommentEditPage extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        connection= DBConnection.connection;
+        DBConnection connection1=new DBConnection();
+        connection=connection1.DatabaseConnection();
 
         Intent intent=getIntent();
 
@@ -47,7 +47,7 @@ public class CommentEditPage extends AppCompatActivity {
             edit_mode=1;
             com_id=comment.getComment_id();
             firstComment=comment.getComment_desc();
-            firstScore=Float.valueOf(comment.getComment_user_score());
+            firstScore=Float.parseFloat(comment.getComment_user_score());
             binding.comUserName.setText(comment.getComment_user_name());
             binding.commentDescriptionUser.setText(comment.getComment_desc());
             binding.ratingBar.setRating(Float.parseFloat(comment.getComment_user_score()));
@@ -55,8 +55,8 @@ public class CommentEditPage extends AppCompatActivity {
             else{
                 binding.deleteComment.setVisibility(View.INVISIBLE);
             }
-            user_role=intent.getStringExtra("user_role");
-            if(user_role.equals("admin")){
+            //user_rolee=intent.getStringExtra("user_role");
+            if(LoginPage.user_role.equals("Admin")){
                 binding.ratingBar.setEnabled(false);
                 binding.commentDescriptionUser.setEnabled(false);
                 binding.saveComment.setVisibility(View.INVISIBLE);
@@ -72,17 +72,23 @@ public class CommentEditPage extends AppCompatActivity {
                 //Burada Temel database kodları alır
                 boolean isItDone=addOrUpdateComment();
                 if(isItDone){
-                    Intent intent=new Intent(view.getContext(),MainActivity.class);
-                    intent.putExtra("user_mail",LoginPage.login_user_mail);
-                    startActivity(intent);
-                    finish();
+                    if(LoginPage.user_role.equals("Admin")){
+                        Intent intent=new Intent(view.getContext(),AdminMainPage.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else{
+                        Intent intent=new Intent(view.getContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }
         });
         binding.cancelComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user_role.equals("admin")){
+                if(LoginPage.user_role.equals("Admin")){
                     Intent intent=new Intent(view.getContext(),AdminMainPage.class);
                     startActivity(intent);
                     finish();
@@ -108,7 +114,7 @@ public class CommentEditPage extends AppCompatActivity {
             public void onClick(View view) {
                 deleteComment();
                 Toast.makeText(view.getContext(),"Yorum Başarıyla Silindi",Toast.LENGTH_SHORT).show();
-                if(user_role.equals("admin")){
+                if(LoginPage.user_role.equals("Admin")){
                     Intent intent=new Intent(view.getContext(),AdminMainPage.class);
                     startActivity(intent);
                     finish();
@@ -123,22 +129,20 @@ public class CommentEditPage extends AppCompatActivity {
     }
     public Boolean addOrUpdateComment(){
         //Edit mode a bakacak burada çünkü rol sadece user ise bu fonksiyon çalışacak
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        connection= DBConnection.connection;
-        String query;
+
+
         if(edit_mode==0){
             ratingbar_user_score=binding.ratingBar.getRating();
             if(binding.commentDescriptionUser.getText().toString().isEmpty()||ratingbar_user_score==0
-                    ||firstComment.equals(binding.commentDescriptionUser.getText().toString())||firstScore==ratingbar_user_score){
+                    ||firstScore==ratingbar_user_score){
                 Toast.makeText(this,"Boş Alan VEYA Değişiklik yapılmamış",Toast.LENGTH_LONG).show();
             }
             else {
                 try {
-                    query = "INSERT INTO comments VALUES(12,?,?,?,?)";
+                    String query = "INSERT INTO comments(com_user_id,com_movie_id,com_description,com_score) VALUES(?,?,?,?)";
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
-                    preparedStatement.setString(1, String.valueOf(LoginPage.login_user_id));
-                    preparedStatement.setString(2, String.valueOf(movie_id));
+                    preparedStatement.setInt(1, LoginPage.login_user_id);
+                    preparedStatement.setInt(2, movie_id);
                     preparedStatement.setString(3, binding.commentDescriptionUser.getText().toString());
                     preparedStatement.setString(4, String.valueOf(ratingbar_user_score));
 
@@ -165,8 +169,8 @@ public class CommentEditPage extends AppCompatActivity {
             }
             else{
                 try {
-                query = "UPDATE comments SET com_description=?,com_score=? where com_id=" + com_id;
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                String query2= "UPDATE comments SET com_description=?,com_score=? where com_id=" + com_id;
+                PreparedStatement preparedStatement = connection.prepareStatement(query2);
                 preparedStatement.setString(1, binding.commentDescriptionUser.getText().toString());
                 preparedStatement.setString(2, String.valueOf(ratingbar_user_score));
                 int affectedRows = preparedStatement.executeUpdate();
@@ -199,7 +203,7 @@ public class CommentEditPage extends AppCompatActivity {
             if (affectedRows > 0) {
                 System.out.println("Başarılı Yorum Silme");
             } else {
-                System.out.println("Başarısız yorum Silme");
+                System.out.println("Başarısız Yorum Silme");
             }
 
         } catch (SQLException e) {

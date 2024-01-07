@@ -92,6 +92,7 @@ public class ProfilePageFragment extends Fragment {
         });
         return binding.getRoot();
     }
+
     public void getFavMoviesID(){
         try {
             // Örnek bir sorgu

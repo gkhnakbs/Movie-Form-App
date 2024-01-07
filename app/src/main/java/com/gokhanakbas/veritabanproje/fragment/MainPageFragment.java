@@ -3,6 +3,7 @@ package com.gokhanakbas.veritabanproje.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -37,50 +38,55 @@ public class MainPageFragment extends Fragment {
     String result_movie_score="";
     String result_movie_category="";
     Connection connection;
+    MovieAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // inflater.inflate(R.layout.fragment_main_page, container, false);
-        binding=FragmentMainPageBinding.inflate(getLayoutInflater()); // Doğru id kullanıldığından emin olun
+
+        binding=FragmentMainPageBinding.inflate(getLayoutInflater());
         binding.rvMainPage.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        connection= DBConnection.connection;
+        DBConnection connection1=new DBConnection();
+        connection=connection1.DatabaseConnection();
 
         getMovies();
-        MovieAdapter adapter=new MovieAdapter(requireContext(),movieList,"user");
-
+        adapter=new MovieAdapter(requireContext(),movieList,"user");
         binding.rvMainPage.setAdapter(adapter);
+
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getMovies();
+        adapter.notifyDataSetChanged();
     }
 
     public void getMovies(){
         movieList.clear();
         try {
-            // Örnek bir sorgu
             String query = "SELECT * FROM movies";
             PreparedStatement statement = connection.prepareStatement(query);
-
-            // Sorguyu çalıştır
             ResultSet resultSet = statement.executeQuery();
-
-            // Sonuçları işle
             if (resultSet == null) {
                 Toast.makeText(getContext(), "Film bulunamamıştır", Toast.LENGTH_LONG).show();
             } else {
                 while (resultSet.next()) {
                     result_movie_id = resultSet.getInt(1);
-                    result_movie_name = resultSet.getString(2).toString();
-                    result_movie_desc = resultSet.getString(3).toString();
-                    result_movie_score = resultSet.getString(4).toString();
-                    result_movie_category = resultSet.getString(5).toString();
+                    result_movie_name = resultSet.getString(2);
+                    result_movie_desc = resultSet.getString(3);
+                    result_movie_score = resultSet.getString(4);
+                    result_movie_category = resultSet.getString(5);
                     movieList.add(new Movie(result_movie_id,result_movie_name,result_movie_desc,result_movie_score,result_movie_category));
                 }
                 resultSet.close();
                 statement.close();
-            }}catch(Exception e){
-            System.out.println("Başarısız Film");
+            }
+        }catch(Exception e){
+            System.out.println("Başarısız Filmdi");
             e.printStackTrace();
         }
     }

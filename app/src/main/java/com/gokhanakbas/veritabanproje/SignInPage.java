@@ -43,13 +43,12 @@ public class SignInPage extends AppCompatActivity {
                         binding.textInputAge.getText().toString().equals("") ||binding.textInputPassword.getText().toString().equals("")){
                         Toast.makeText(v.getContext(),"Lütfen Boş Alan Bırakmayınız",Toast.LENGTH_LONG).show();
                 }else{
-                   boolean didAdd=addUser(v.getContext());
-                   if(didAdd){
+                      addUser();
                        Intent intent=new Intent(v.getContext(), LoginPage.class);
                        startActivity(intent);
                        finish();
                    }
-                }
+
         }});
 
         binding.cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -62,30 +61,30 @@ public class SignInPage extends AppCompatActivity {
         });
     }
 
-    public Boolean addUser(Context context){
+    public void addUser(){
         try {
-            String sql = "INSERT INTO users VALUES (13,?, ?, ?, ?)";
+            String sql = "INSERT INTO users(user_name,user_mail,user_age,user_password,user_role) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, binding.textInputFullName.getText().toString());
             preparedStatement.setString(2, binding.textInputEmail.getText().toString());
             preparedStatement.setString(3, binding.textInputAge.getText().toString());
             preparedStatement.setString(4, binding.textInputPassword.getText().toString());
+            preparedStatement.setString(5, "User");
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {
                 System.out.println("Başarılı");
-                Toast.makeText(context,"Başarıyla Kaydoldunuz",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Başarıyla Kaydoldunuz",Toast.LENGTH_LONG).show();
 
-                return true;
             } else {
                 System.out.println("Başarısız");
-                Toast.makeText(context,"İşlem Gerçekleştirilemedi , Tekrar Deneyiniz",Toast.LENGTH_LONG).show();
-                return false;
+                Toast.makeText(getApplicationContext(),"İşlem Gerçekleştirilemedi , Tekrar Deneyiniz",Toast.LENGTH_LONG).show();
+
             }
         } catch (SQLException e) {
             System.out.println("Başarısız");
             e.printStackTrace();
         }
-        return null;
+
     }
 }

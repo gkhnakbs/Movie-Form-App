@@ -57,6 +57,7 @@ public class MoviePage extends AppCompatActivity {
             movie_id=movie.getMovie_id();
             getComments(movie_id);
             getActors(movie_id);
+            getFavouriteCount(movie.getMovie_name());
             isItFavourite();
         }
         else{
@@ -109,6 +110,35 @@ public class MoviePage extends AppCompatActivity {
         binding.rvActorMoviePage.setAdapter(adapter1);
 
     }
+    public void getFavouriteCount(String movie_name){
+        try {
+            // Örnek bir sorgu
+            String query = "SELECT get_favorileme_sayisi(?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1,movie_name);
+
+            // Sorguyu çalıştır
+            ResultSet resultSet = statement.executeQuery();
+            int count_fav=0;
+            // Sonuçları işle
+            if (resultSet == null) {
+
+            } else {
+
+                while (resultSet.next()) {
+                    count_fav=resultSet.getInt(1);
+                }
+
+                resultSet.close();
+                statement.close();
+            }
+
+            binding.countOfFavourite.setText(String.valueOf(count_fav));
+        }catch(Exception e){
+            System.out.println("Başarısız Favori Film");
+            e.printStackTrace();
+        }
+    }
 
     public void isItFavourite(){
         String sql = "Select * from favourites where fav_movie_id="+movie_id+" AND fav_user_id="+LoginPage.login_user_id;
@@ -136,7 +166,7 @@ public class MoviePage extends AppCompatActivity {
     }
 
     public void addToFavourites(){
-        String sql = "INSERT INTO favourites VALUES (12,?,?)";
+        String sql = "INSERT INTO favourites(fav_movie_id,fav_user_id) VALUES (?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, movie_id);
@@ -150,6 +180,7 @@ public class MoviePage extends AppCompatActivity {
                 System.out.println("Başarısız Favorilere Ekleme");
                 Toast.makeText(this,"İşlem Gerçekleştirilemedi , Tekrar Deneyiniz",Toast.LENGTH_SHORT).show();
             }
+            preparedStatement.close();
         } catch (SQLException e) {
             System.out.println("Başarısız Favorilere Ekleme");
             e.printStackTrace();
@@ -169,6 +200,7 @@ public class MoviePage extends AppCompatActivity {
                 System.out.println("Başarısız Favori Kaldırma");
                 Toast.makeText(this,"İşlem Gerçekleştirilemedi , Tekrar Deneyiniz",Toast.LENGTH_SHORT).show();
             }
+            preparedStatement.close();
         } catch (SQLException e) {
             System.out.println("Başarısız Favorilere Ekleme");
             e.printStackTrace();
@@ -180,17 +212,15 @@ public class MoviePage extends AppCompatActivity {
         try {
             String query = "SELECT a.actor_id,a.actor_name,a.actor_age,a.actor_sex,a.actor_country FROM actorsofmovies AS aom " +
                     "JOIN actors AS a ON a.actor_id=aom.actor_id where actor_movie_id="+movie_id;
-            PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement33 = connection.prepareStatement(query);
             String result_actor_name="";
             String result_actor_age="";
             String result_actor_country="";
             String result_actor_gender="";
 
-            ResultSet resultSet = statement.executeQuery();
-
-
+            ResultSet resultSet = statement33.executeQuery();
             if (resultSet == null) {
-                Toast.makeText(this, "Aktör", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Aktör çekme başarısız", Toast.LENGTH_LONG).show();
             } else {
                 while (resultSet.next()) {
                     int actor_id=resultSet.getInt(1);
@@ -201,7 +231,7 @@ public class MoviePage extends AppCompatActivity {
                     actorList.add(new Actor(actor_id,result_actor_name,result_actor_country,result_actor_gender,result_actor_age));
                 }
                 resultSet.close();
-                statement.close();
+                statement33.close();
             }}catch(Exception e){
             System.out.println("Başarısız Film");
             e.printStackTrace();
@@ -220,9 +250,9 @@ public class MoviePage extends AppCompatActivity {
         try {
             String query = "SELECT c.com_id,c.com_user_id,c.com_description,c.com_score,u.user_name FROM comments AS c " +
                     "JOIN users u ON u.user_id=c.com_user_id where com_movie_id=" + movie_id;
-            PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement22 = connection.prepareStatement(query);
 
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = statement22.executeQuery();
 
 
             if (resultSet == null) {
@@ -237,7 +267,7 @@ public class MoviePage extends AppCompatActivity {
                     commentList.add(new Comment(result_comment_id,result_comment_user_id,result_comment_user_name,result_comment_desc,result_comment_score));
                 }
                 resultSet.close();
-                statement.close();
+                statement22.close();
             }
         } catch (Exception e) {
             System.out.println("Başarısız Yorum Çekme");

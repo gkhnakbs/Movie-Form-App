@@ -25,6 +25,7 @@ public class LoginPage extends AppCompatActivity {
     Connection connection;
     static int login_user_id;
     static String login_user_mail;
+    static String user_role;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +49,17 @@ public class LoginPage extends AppCompatActivity {
                         }else{
                             boolean isValid=checkUser(v.getContext());
                             if(isValid){
-                                Intent intent=new Intent(v.getContext(), AdminMainPage.class);
-                                intent.putExtra("user_mail",binding.textInputEmail.getText().toString());
-                                startActivity(intent);
-                                finish();
+                                if(user_role.equals("User")) {
+                                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                                    intent.putExtra("user_mail", binding.textInputEmail.getText().toString());
+                                    startActivity(intent);
+                                    finish();
+                                }else{
+                                    Intent intent = new Intent(v.getContext(), AdminMainPage.class);
+                                    intent.putExtra("user_mail", binding.textInputEmail.getText().toString());
+                                    startActivity(intent);
+                                    finish();
+                                }
                             }
                         }
                     }
@@ -70,7 +78,7 @@ public class LoginPage extends AppCompatActivity {
     public Boolean checkUser(Context context) {
         try {
             // Örnek bir sorgu
-            String query = "SELECT user_id,user_password FROM users where user_mail='" + binding.textInputEmail.getText().toString() + "'";
+            String query = "SELECT user_id,user_password,user_role FROM users where user_mail='" + binding.textInputEmail.getText().toString() + "'";
             PreparedStatement statement = connection.prepareStatement(query);
             String user_password=binding.textInputPassword.getEditText().getText().toString();
             // Sorguyu çalıştır
@@ -83,6 +91,7 @@ public class LoginPage extends AppCompatActivity {
                 while (resultSet.next()) {
                     login_user_id = resultSet.getInt(1);
                     result = resultSet.getString(2);
+                    user_role=resultSet.getString(3);
                     System.out.println("ŞİFRE:" + result);
                 }
                 login_user_mail=binding.textInputEmail.getText().toString();

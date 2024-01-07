@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#78FFEF"
     tools:context=".LoginPage">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -50,10 +51,10 @@
         android:id="@+id/loginbutton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="260dp"
+        android:layout_marginStart="258dp"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="60dp"
-        android:text="Log in"
+        android:text="Sign In"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputPassword" />
@@ -65,7 +66,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="120dp"
-        android:text="Sign in"
+        android:text="Sign Up"
         app:layout_constraintEnd_toStartOf="@+id/loginbutton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputPassword" />
