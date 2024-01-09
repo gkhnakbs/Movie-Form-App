@@ -90,6 +90,16 @@ public class ProfilePageFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        binding.exitButtonUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(v.getContext(),LoginPage.class);
+                startActivity(intent);
+
+            }
+        });
+
         return binding.getRoot();
     }
 

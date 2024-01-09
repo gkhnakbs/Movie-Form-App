@@ -52,6 +52,7 @@ public class ActorPage extends AppCompatActivity {
             if(intent.getStringExtra("user_role").equals("admin")){
 
             }else{
+                binding.deleteActorButton.setVisibility(View.INVISIBLE);
             binding.saveButtonActor.setVisibility(View.INVISIBLE);
             binding.textInputActorName.setEnabled(false);
             binding.textInputActorAge.setEnabled(false);
@@ -59,25 +60,35 @@ public class ActorPage extends AppCompatActivity {
             binding.textInputActorCountry.setEnabled(false);
             }
         }
-        binding.saveButtonActor.setOnClickListener(new View.OnClickListener() {
+        binding.deleteActorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addOrUpdateActors();
+                deleteActor();
                 Intent intent =new Intent(v.getContext(), AdminMainPage.class);
                 startActivity(intent);
                 finish();
             }
         });
+        binding.saveButtonActor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addOrUpdateActors();
+                    Intent intent =new Intent(v.getContext(), AdminMainPage.class);
+                    startActivity(intent);
+                    finish();
+
+            }
+        });
         binding.cancelButtonActor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(LoginPage.user_role=="Admin"){
-                Intent intent =new Intent(v.getContext(), AdminMainPage.class);
+                if(LoginPage.user_role.equals("User")){
+                Intent intent =new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
                 }
                 else{
-                    Intent intent =new Intent(v.getContext(), MainActivity.class);
+                    Intent intent =new Intent(v.getContext(), AdminMainPage.class);
                     startActivity(intent);
                     finish();
                 }
@@ -112,6 +123,25 @@ public class ActorPage extends AppCompatActivity {
             }
         } catch (SQLException e) {
             System.out.println("Başarısız");
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteActor(){
+        String sql = "delete from actors where actor_id="+actor_id;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Başarılı Aktör Silme");
+                Toast.makeText(getApplicationContext(),"Başarılı Aktör Silme",Toast.LENGTH_SHORT).show();
+
+            } else {
+                System.out.println("Başarısız Aktör Silme");
+                Toast.makeText(getApplicationContext(),"İşlem Gerçekleştirilemedi , Tekrar Deneyiniz",Toast.LENGTH_SHORT).show();
+            }
+        } catch (SQLException e) {
+            System.out.println("Başarısız Aktör");
             e.printStackTrace();
         }
     }

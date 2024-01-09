@@ -83,7 +83,7 @@ public class MovieCreateAndEdit extends AppCompatActivity {
                 }
                 else{
                     for (String i:actor_listName) {
-                        if(i.equals(binding.actorAddInput.getText().toString())){
+                        if(i.equals(binding.actorAddInput.getText().toString().trim())){
                             isThere=1;
                             break;
                         }

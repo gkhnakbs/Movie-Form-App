@@ -37,6 +37,7 @@ public class MoviePage extends AppCompatActivity {
     ArrayList<Comment> commentList=new ArrayList<>();
     Connection connection;
     int movie_id;
+    String movie_name="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,7 @@ public class MoviePage extends AppCompatActivity {
         if (intent != null) {
             Movie movie = (Movie) intent.getSerializableExtra("movie_object");
             binding.movieName.setText(movie.getMovie_name());
+            movie_name=movie.getMovie_name();
             binding.movieDescription.setText(movie.getMovie_desc());
             binding.movieScore.setText(movie.getMovie_score().concat("/10"));
             binding.categoryName.setText(movie.getMovie_category());
@@ -76,12 +78,14 @@ public class MoviePage extends AppCompatActivity {
                     binding.addFavourite.setImageResource(R.drawable.heart_icon_filled);
                     favouriteStatus=1;
                     addToFavourites();
+                    getFavouriteCount(movie_name);
                 }
                 else{
                     Toast.makeText(v.getContext(),"Favorilerden Çıkarıldı",Toast.LENGTH_SHORT).show();
                     binding.addFavourite.setImageResource(R.drawable.heart_icon);
                     favouriteStatus=0;
                     deleteFromFavourites();
+                    getFavouriteCount(movie_name);
                 }
             }
         });
