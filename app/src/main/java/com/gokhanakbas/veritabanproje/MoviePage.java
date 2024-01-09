@@ -121,7 +121,7 @@ public class MoviePage extends AppCompatActivity {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1,movie_name);
 
-            // Sorguyu çalıştır
+            // Sorguyu ç alıştır
             ResultSet resultSet = statement.executeQuery();
             int count_fav=0;
             // Sonuçları işle
